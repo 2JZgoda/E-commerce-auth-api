@@ -424,7 +424,7 @@ export const refreshTokenHandler = async (req, res) => {
                     }
                 }
             ],
-            { new: true }
+            { new: true,updatePipeline: true }
         );
 
         if (!updatedUser) {
