@@ -26,6 +26,7 @@ export const uploadToCloudinary = (fileBuffer,folderName) =>{
     })
 }
 
+
 export const deleteFromCloudinary = async (publicId)=>{
     if(!publicId){
         return 

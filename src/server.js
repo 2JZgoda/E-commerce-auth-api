@@ -47,16 +47,17 @@ app.use("/api/v1/coupons", couponRouter);
 app.use("/api/v1/reviews", reviewRouter);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ status: 'Success', message: 'ده ويبسايت' });
+  res.status(200).json({ status: 'Success', message: 'E-commerce-auth-api' });
 });
 
 const startServer = async () => {
   await dataBaseConnection();
-
+/*
   app.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
   });
-};
+*/
+  };
 
 startServer();
 
