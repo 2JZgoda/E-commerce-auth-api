@@ -13,7 +13,7 @@ export const globalLimiter = rateLimit({
 
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 100,
   message: {
     status: 'fail',
     message: 'Too many authentication attempts. Please try again after 15 minutes.',
@@ -24,7 +24,7 @@ export const authLimiter = rateLimit({
 
 export const otpRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5,
+  max: 100,
   message: {
     status: 'fail',
     message: 'Too many OTP requests. Please try again after 15 minutes.',
