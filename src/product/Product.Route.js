@@ -1,10 +1,10 @@
-import express from "express"
+import express from "express";
 const router = express.Router();
 
-
-import {validate} from "../middlewares/validation.middleware.js"
+import { validate } from "../middlewares/validation.middleware.js";
 import { adminMiddleware } from "../middlewares/admin.middleware.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { uploadSingleImage } from "../middlewares/uploadImage.middleware.js";
 
 import {
     createProduct,
@@ -13,7 +13,7 @@ import {
     getProductById,
     getProductByProductname,
     updateProduct
-} from "./Product.Controller.js"
+} from "./Product.Controller.js";
 
 import {
   createProductSchema,
@@ -23,17 +23,12 @@ import {
   getProductByProductnameSchema,
 } from "./Product.Validator.js";
 
+router.post("/", authMiddleware, adminMiddleware, uploadSingleImage("imageCover"), validate(createProductSchema), createProduct);
+router.get("/", getAllProducts);
+router.get("/name/:name", validate(getProductByProductnameSchema), getProductByProductname);
 
+router.get("/:id", validate(getProductByIdSchema), getProductById);
+router.put("/:id", authMiddleware, adminMiddleware, uploadSingleImage("imageCover"), validate(updateProductByIdSchema), updateProduct);
+router.delete("/:id", authMiddleware, adminMiddleware, validate(deleteProductByIdSchema), deleteProductById);
 
-router.post("/",authMiddleware,adminMiddleware, validate(createProductSchema),createProduct);//*admin
-router.get("/", getAllProducts);//*public -- not required to be a customer that have account
-router.get("/name/:name", validate(getProductByProductnameSchema),getProductByProductname);
-
-router.get("/:id", validate(getProductByIdSchema),getProductById);
-router.put("/:id",authMiddleware,adminMiddleware,validate(updateProductByIdSchema),updateProduct);//*admin
-router.delete("/:id",authMiddleware,adminMiddleware, validate(deleteProductByIdSchema),deleteProductById);//*admin
-
-
-
-
-export default router
+export default router;

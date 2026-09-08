@@ -1,5 +1,6 @@
 import { ProductModel } from "./Product.Model.js";
 import slugify from "slugify";
+import { uploadToCloudinary, deleteFromCloudinary } from "../services/cloudinaryService.js";
 
 export const createProduct = async (req, res) => {
   try {
@@ -9,7 +10,6 @@ export const createProduct = async (req, res) => {
       quantity,
       price,
       priceAfterDiscount,
-      imageCover,
       category,
       subCategory,
       brand,
@@ -23,6 +23,11 @@ export const createProduct = async (req, res) => {
       });
     }
 
+    const { url, public_id } = await uploadToCloudinary(
+      req.file.buffer,
+      "products"
+    );
+
     const slug = slugify(title, { lower: true, strict: true });
 
     const newProduct = await ProductModel.create({
@@ -32,7 +37,10 @@ export const createProduct = async (req, res) => {
       quantity,
       price,
       priceAfterDiscount,
-      imageCover,
+      imageCover: {
+        url,
+        public_id,
+      },
       category,
       subCategory,
       brand,
@@ -55,29 +63,24 @@ export const createProduct = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
   try {
-           const page = Math.max(1,parseInt(req.query.page,10) || 1);
-                const limit  = Math.max(1,parseInt(req.query.limit,10) || 10);
-                const skip = (page-1) * limit;
-            
-            
-                const allowedSortFields = ["name", "createdAt", "updatedAt"];
-            
-            
-                const sortBy = allowedSortFields.includes(req.query.sortBy) ? req.query.sortBy : "createdAt"
-            
-                const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
-            
-                const totalProducts = await ProductModel.countDocuments();
-                const totalPages = Math.ceil(totalProducts / limit);
-            
-                const sortObj = {};
-            
-                sortObj[sortBy] = sortOrder;
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const limit = Math.max(1, parseInt(req.query.limit, 10) || 10);
+    const skip = (page - 1) * limit;
+
+    const allowedSortFields = ["name", "createdAt", "updatedAt"];
+    const sortBy = allowedSortFields.includes(req.query.sortBy) ? req.query.sortBy : "createdAt";
+    const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
+
+    const totalProducts = await ProductModel.countDocuments();
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    const sortObj = {};
+    sortObj[sortBy] = sortOrder;
 
     const products = await ProductModel.find().sort(sortObj).skip(skip).limit(limit).lean().select("-__v")
       .populate("category", "name")
       .populate("subCategory", "name")
-      .populate("brand", "name")
+      .populate("brand", "name");
 
     return res.status(200).json({
       success: true,
@@ -104,6 +107,10 @@ export const deleteProductById = async (req, res) => {
         success: false,
         message: "Product not found!",
       });
+    }
+
+    if (deletedProduct.imageCover?.public_id) {
+      await deleteFromCloudinary(deletedProduct.imageCover.public_id);
     }
 
     return res.status(200).json({
@@ -190,11 +197,18 @@ export const updateProduct = async (req, res) => {
       quantity,
       price,
       priceAfterDiscount,
-      imageCover,
       category,
       subCategory,
       brand,
     } = req.body;
+
+    const existingProduct = await ProductModel.findById(id);
+    if (!existingProduct) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found!",
+      });
+    }
 
     const updatedPayload = {};
     if (title) {
@@ -204,28 +218,30 @@ export const updateProduct = async (req, res) => {
     if (description) updatedPayload.description = description;
     if (quantity !== undefined) updatedPayload.quantity = quantity;
     if (price !== undefined) updatedPayload.price = price;
-    if (priceAfterDiscount !== undefined)
-      updatedPayload.priceAfterDiscount = priceAfterDiscount;
-    if (imageCover) updatedPayload.imageCover = imageCover;
+    if (priceAfterDiscount !== undefined) updatedPayload.priceAfterDiscount = priceAfterDiscount;
     if (category) updatedPayload.category = category;
     if (subCategory) updatedPayload.subCategory = subCategory;
     if (brand) updatedPayload.brand = brand;
 
+    if (req.file) {
+      const uploadedImage = await uploadToCloudinary(req.file.buffer, "products");
+      if (existingProduct.imageCover?.public_id) {
+        await deleteFromCloudinary(existingProduct.imageCover.public_id);
+      }
+      updatedPayload.imageCover = {
+        url: uploadedImage.url,
+        public_id: uploadedImage.public_id,
+      };
+    }
+
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       id,
       updatedPayload,
-      { new: true, runValidators: true }
+      { returnDocument: "after", runValidators: true }
     )
       .populate("category", "name")
       .populate("subCategory", "name")
       .populate("brand", "name");
-
-    if (!updatedProduct) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found!",
-      });
-    }
 
     return res.status(200).json({
       success: true,
