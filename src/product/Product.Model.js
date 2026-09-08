@@ -53,7 +53,7 @@ ratingAvg:{
     type:Number,
     min: [1, 'Rating must be above or equal to 1.0'],
     max: [5, 'Rating must be below or equal to 5.0'],
-    default:0,
+    default:1,
 },
 ratingCount:{
     type:Number,
@@ -64,7 +64,7 @@ imageCover: {
         type: String,
         required: [true, "Product cover image URL is required"],
       },
-      public_id: {
+      public_id: {  
         type: String,
         required: [true, "Product cover image public_id is required"],
       },
