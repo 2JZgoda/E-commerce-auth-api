@@ -36,12 +36,11 @@ export const createBrand = async (req, res) => {
       data: newBrand,
     });
   } catch (error) {
-    console.error("Create Brand Error:", error);
+      console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -75,12 +74,11 @@ export const getAllBrands = async (req, res) => {
     });
 
   } catch (error) {
-    console.log("Get Brands Error: ", error);
+        console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -107,12 +105,11 @@ export const deleteBrandById = async (req, res) => {
       data: deletedBrand,
     });
   } catch (error) {
-    console.log("Delete Brand Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -134,11 +131,10 @@ export const getBrandById = async (req, res) => {
       data: brand,
     });
   } catch (error) {
-    console.log("Get Brand Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
+      message: "Internal server error!"
     });
   }
 };
@@ -162,12 +158,11 @@ export const getBrandByBrandName = async (req, res) => {
       data: brand,
     });
   } catch (error) {
-    console.log("Get Brand Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -219,127 +214,11 @@ export const updateBrand = async (req, res) => {
 
     
   } catch (error) {
-    console.log("Update Brand Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
-
-/*
-export const insertSampleProducts = async(req,res)=>{
-  try {
- const brands = [
-  {
-    name: "Nike",
-    slug: "nike",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/nike.jpg",
-      public_id: "brands/nike",
-    },
-  },
-  {
-    name: "Adidas",
-    slug: "adidas",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/adidas.jpg",
-      public_id: "brands/adidas",
-    },
-  },
-  {
-    name: "Puma",
-    slug: "puma",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/puma.jpg",
-      public_id: "brands/puma",
-    },
-  },
-  {
-    name: "Sony",
-    slug: "sony",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/sony.jpg",
-      public_id: "brands/sony",
-    },
-  },
-  {
-    name: "Dell",
-    slug: "dell",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/dell.jpg",
-      public_id: "brands/dell",
-    },
-  },
-  {
-    name: "HP",
-    slug: "hp",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/hp.jpg",
-      public_id: "brands/hp",
-    },
-  },
-  {
-    name: "Lenovo",
-    slug: "lenovo",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/lenovo.jpg",
-      public_id: "brands/lenovo",
-    },
-  },
-  {
-    name: "Zara",
-    slug: "zara",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/zara.jpg",
-      public_id: "brands/zara",
-    },
-  },
-  {
-    name: "H&M",
-    slug: "h-m",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/h-m.jpg",
-      public_id: "brands/h-m",
-    },
-  },
-  {
-    name: "L'Oreal",
-    slug: "l-oreal",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/l-oreal.jpg",
-      public_id: "brands/l-oreal",
-    },
-  },
-  {
-    name: "Nivea",
-    slug: "nivea",
-    image: {
-      url: "https://res.cloudinary.com/demo/image/upload/v1/brands/nivea.jpg",
-      public_id: "brands/nivea",
-    },
-  },
-];
-
-  const result = await BrandModel.insertMany(brands);
-
-  res.status(201).json({
-    success:true,
-    data:`${result.length} brands inserted successfully!`,
-    brands:result
-
-  })
-
-    
-  } catch (error) {
-    console.log("insert Sample Error: ", error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
-  }
-}
-*/

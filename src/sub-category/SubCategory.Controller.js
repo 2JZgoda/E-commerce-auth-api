@@ -37,12 +37,11 @@ export const createSubCategory = async (req, res) => {
     if (uploadedImage?.public_id) {
       await deleteFromCloudinary(uploadedImage.public_id).catch(console.error);
     }
-    console.error("Create SubCategory Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -87,12 +86,11 @@ export const getAllSubCategorys = async (req, res) => {
       data: subCategories,
     });
   } catch (error) {
-    console.log("Get SubCategories Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -119,12 +117,11 @@ export const deleteSubCategoryById = async (req, res) => {
       data: deletedSubCategory,
     });
   } catch (error) {
-    console.log("Delete SubCategory Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -146,12 +143,11 @@ export const getSubCategoryById = async (req, res) => {
       data: subCategory,
     });
   } catch (error) {
-    console.log("Get SubCategory Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -176,12 +172,11 @@ export const getSubCategoryBySubCategorynName = async (req, res) => {
       data: subCategory,
     });
   } catch (error) {
-    console.log("Get SubCategory Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -233,11 +228,10 @@ export const updateSubCategory = async (req, res) => {
       data: updatedSubCategory,
     });
   } catch (error) {
-    console.log("Update SubCategory Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };

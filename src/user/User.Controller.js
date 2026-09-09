@@ -44,11 +44,12 @@ export const createUser = async(req,res)=>{
         message:"user added successfully!"
     })
     }
-    catch(error){        
+    catch(error){   
+    console.error("Internal Error:", error);
+     
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
+            message:"Internal server error!"
 
         })
     }
@@ -90,11 +91,10 @@ export const getAllUsers = async(req,res)=>{
         })
     }
     catch(error){
-        
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
+            message:"Internal server error!"
 
         })
     }
@@ -121,11 +121,11 @@ export const deleteUserById = async(req,res)=>{
     })
 }
     catch(error){
-        
+    console.error("Internal Error:", error);
+ 
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
+            message:"Internal server error!"
 
         })
     }
@@ -155,12 +155,11 @@ export const getUserById = async(req,res)=>{
 
     }
     catch(error){
-        
+    console.error("Internal Error:", error);
+
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
-
+            message:"Internal server error!"
         })
     }
 
@@ -191,12 +190,11 @@ export const getUserByUsername = async(req,res)=>{
     
     }
     catch(error){
-        
+    console.error("Internal Error:", error);
+
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
-
+            message:"Internal server error!"
         })
     }
 
@@ -256,11 +254,11 @@ export const updateUser = async(req,res)=>{
 
 }
     catch(error){
-        
+    console.error("Internal Error:", error);
+
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
+            message:"Internal server error!"
 
         })
     }

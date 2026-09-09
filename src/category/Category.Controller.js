@@ -43,16 +43,13 @@ export const createCategory = async(req,res)=>{
         })
 
     } catch (error) {
-        console.error("Create Category Error:", error);
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success: false,
-            message:"Internal server error!",
-            error:error.message
-        })
+            message:"Internal server error!"
+                })
     }
 }
-
-
 
 export const getAllCategories = async(req,res)=>{
     try{
@@ -92,11 +89,11 @@ export const getAllCategories = async(req,res)=>{
 
 
     catch(error){
-        console.log("Get Categories Error: ",error);
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success:false,
-            error: error.message
-        })
+            message:"Internal server error!"
+                })
         
     }
 }
@@ -124,13 +121,11 @@ export const deleteCategoryById = async(req,res)=>{
         data:deletedCategory
     })}
     catch(error){
-        console.log("Delete Category Error:",error);
+    console.error("Internal Error:", error);
         
         res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message
-
+            message:"Internal server error!"
         })
     }
 }
@@ -147,12 +142,11 @@ export const getCategoryById = async(req,res)=>{
     })}
         
     catch(error){
-        console.log("Get Category Error: ",error);
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message
-        })
+            message:"Internal server error!"
+                })
         
     }
 }
@@ -171,12 +165,11 @@ export const getCategoryByName = async(req,res)=>{
     })}    
     
     catch(error){
-        console.log("Get Category Error: ",error);
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message
-        })
+            message:"Internal server error!"
+                })
         
     }
 }
@@ -194,12 +187,11 @@ export const getCategoryBySlug = async(req,res)=>{
     })
 }      
     catch(error){
-        console.log("Get Category Error: ",error);
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message
-        })
+            message:"Internal server error!"
+                })
         
     }
     
@@ -256,12 +248,11 @@ export const updateCategory = async(req,res)=>{
         
     }
     catch(error){
-        console.log("Update Category Error: ",error);
+    console.error("Internal Error:", error);
         return res.status(500).json({
             success:false,
-            message:"Internal server error!",
-            error: error.message 
-        })
+            message:"Internal server error!"
+                })
     }
 
 }

@@ -22,6 +22,7 @@ export const authMiddleware = (req,res,next)=>{
 
         
     }catch(error){
+            console.error("Internal Error:", error);
             return res.status(401).json({
             success : false,
             message : 'access denied. please login to continue'

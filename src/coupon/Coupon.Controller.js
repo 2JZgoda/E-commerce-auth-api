@@ -24,12 +24,11 @@ export const createCoupon = async (req, res) => {
       data: newCoupon,
     });
   } catch (error) {
-    console.error("Create Coupon Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -98,12 +97,11 @@ export const deleteCouponById = async (req, res) => {
       data: deletedCoupon,
     });
   } catch (error) {
-    console.log("Delete Coupon Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -163,11 +161,10 @@ export const updateCoupon = async (req, res) => {
       data: updatedCoupon,
     });
   } catch (error) {
-    console.log("Update Coupon Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };

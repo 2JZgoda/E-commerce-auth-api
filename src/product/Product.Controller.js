@@ -55,9 +55,8 @@ export const createProduct = async (req, res) => {
     console.error("Create Product Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -79,7 +78,7 @@ export const getAllProducts = async (req, res) => {
 
     const products = await ProductModel.find().sort(sortObj).skip(skip).limit(limit).lean().select("-__v")
       .populate("category", "name")
-      .populate("subCategory", "name")
+      .populate("subCategory", "name") 
       .populate("brand", "name");
 
     return res.status(200).json({
@@ -88,12 +87,11 @@ export const getAllProducts = async (req, res) => {
       data: products,
     });
   } catch (error) {
-    console.log("Get Products Error: ", error);
+    console.log("Internal Error", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -119,12 +117,11 @@ export const deleteProductById = async (req, res) => {
       data: deletedProduct,
     });
   } catch (error) {
-    console.log("Delete Product Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -149,22 +146,24 @@ export const getProductById = async (req, res) => {
       data: product,
     });
   } catch (error) {
-    console.log("Get Product Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
 export const getProductByProductname = async (req, res) => {
   try {
     const { name } = req.params;
-    const product = await ProductModel.findOne({ title: name })
+    const slug = slugify(name, { lower: true, strict: true });
+
+    const product = await ProductModel.findOne({ slug: name })
       .populate("category", "name")
       .populate("subCategory", "name")
       .populate("brand", "name");
+    
 
     if (!product) {
       return res.status(404).json({
@@ -179,12 +178,11 @@ export const getProductByProductname = async (req, res) => {
       data: product,
     });
   } catch (error) {
-    console.log("Get Product Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -249,11 +247,10 @@ export const updateProduct = async (req, res) => {
       data: updatedProduct,
     });
   } catch (error) {
-    console.log("Update Product Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };

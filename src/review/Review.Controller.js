@@ -56,12 +56,11 @@ export const createReview = async (req, res) => {
       data: newReview,
     });
   } catch (error) {
-    console.error("Create Review Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -96,12 +95,11 @@ export const getAllReviews = async (req, res) => {
       data: reviews,
     });
   } catch (error) {
-    console.log("Get Reviews Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -118,12 +116,11 @@ export const getReviewsByProduct = async (req, res) => {
       data: reviews,
     });
   } catch (error) {
-    console.log("Get Reviews Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -157,12 +154,11 @@ export const deleteReviewById = async (req, res) => {
       data: deletedReview,
     });
   } catch (error) {
-    console.log("Delete Review Error:", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -186,12 +182,11 @@ export const getReviewById = async (req, res) => {
       data: review,
     });
   } catch (error) {
-    console.log("Get Review Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
 
@@ -233,11 +228,10 @@ export const updateReview = async (req, res) => {
       data: updatedReview,
     });
   } catch (error) {
-    console.log("Update Review Error: ", error);
+    console.error("Internal Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error!",
-      error: error.message,
-    });
+      message: "Internal server error!"
+        });
   }
 };
