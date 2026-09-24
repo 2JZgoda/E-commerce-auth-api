@@ -47,7 +47,7 @@ app.use("/api/v1/coupons", couponRouter);
 app.use("/api/v1/reviews", reviewRouter);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ status: 'Success', message: 'E-commerce-auth-api',message:"HolyMoly" });
+  res.status(200).json({ status: 'Success', message: 'a7a',message:"HolyMoly" });
 });
 
 const startServer = async () => {
