@@ -33,7 +33,18 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 5000;
+
+const startServer = async () => {
+  await dataBaseConnection();
+/*
+  app.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+  });
+*/
+  };
+
+startServer();
 
 app.use("/api" , globalLimiter);
 
@@ -47,18 +58,7 @@ app.use("/api/v1/coupons", couponRouter);
 app.use("/api/v1/reviews", reviewRouter);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ status: 'Success', message: 'a7a',message:"HolyMoly" });
+  res.status(200).json({ status: 'Success',message:"HolyMoly" });
 });
-
-const startServer = async () => {
-  await dataBaseConnection();
-/*
-  app.listen(PORT, () => {
-    console.log(`Server is running on PORT ${PORT}`);
-  });
-*/
-  };
-
-startServer();
 
 export default app;
